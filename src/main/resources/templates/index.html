@@ -12,8 +12,8 @@
 	<div class="container" ng-app="app">
 		<div ng-controller="getcontroller">
 			<button id="btn-id" ng-click="getfunction()">Get</button>
-			<ul>
-				<li ng-repeat="item in response">{{item.id + "              " +item.name+ "          " +item.score+"         " +item.noofwins+ "         " +item.noofloses}}</li>
+			<ul ng-repeat="(key, value) in  response">
+				<li ng-repeat="v in value">{{key + "              " +v.name+ "              " +v.score+ "              " +v.noofwins+ "              " +v.noofloses}}</li>
 			</ul>
 		</div>
 	</div>

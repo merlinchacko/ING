@@ -11,6 +11,7 @@ app.controller('getcontroller', function($scope, $http, $location) {
 		}
 
 		$http.get(url, config).then(function (response) {
+			console.log("response.data==="+response.data);
 			$scope.response = response.data
 		}, function (response) {
 			$scope.getResultMessage = "Fail!";
