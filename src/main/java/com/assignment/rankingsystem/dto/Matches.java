@@ -6,39 +6,30 @@ package com.assignment.rankingsystem.dto;
  */
 public class Matches {
 	
-	private int uniqueid;
-	private Integer winner;
-	private Integer looser;
+	private String winner;
+	private String looser;
 	
 	public Matches() {}
 	
-	public Matches(Integer winner, Integer looser) {
+	public Matches(String winner, String looser) {
 		
 		this.winner = winner;
 		this.looser = looser;
 	}
 
-	public int getUniqueid() {
-		return uniqueid;
-	}
-
-	public void setUniqueid(int uniqueid) {
-		this.uniqueid = uniqueid;
-	}
-
-	public Integer getWinner() {
+	public String getWinner() {
 		return winner;
 	}
 
-	public void setWinner(Integer winner) {
+	public void setWinner(String winner) {
 		this.winner = winner;
 	}
 
-	public Integer getLooser() {
+	public String getLooser() {
 		return looser;
 	}
 
-	public void setLooser(Integer looser) {
+	public void setLooser(String looser) {
 		this.looser = looser;
 	}
 
