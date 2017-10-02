@@ -1,104 +1,86 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Code Assignment</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<script	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.min.js"></script>
-	<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.6.0.js"></script>
-	<script src="/js/controller.js"></script>
-	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
+    <title>Code Assignment</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.min.js"></script>
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.6.0.js"></script>
+    <script src="/js/controller.js"></script>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/style.css"/>
 </head>
-<style>
-.modal {
-	text-align: center;
-	padding: 0 !important;
-	display: block;
-}
-.modal:before {
-	content: '';
-	display: inline-block;
-	height: 100%;
-	vertical-align: middle; 
-	margin-right: -4px;
-}
-.modal-dialog {
-	display: inline-block;
-	text-align: left;
-	vertical-align: middle;
-}
-</style>
 <body>
-	<div class="container-fluid" ng-app="app">
-		<script type="text/ng-template" id="matches.html">
-<div class="modal-dialog">
-    <div class="modal-content">
-			<div class="modal-header">
-	 			<h4 class="modal-title">List of Played Matches</h4>
-			</div>
-			<div class="modal-body">
-				<div class="row">
-					<div class="alert alert-warning" role="alert" ng-show="totalCount === 0">No matches are played.</div>
-					<div class="table-responsive col-lg-12" ng-show="totalCount > 0">
-						<table class="table table-striped">
-							<thead>
-								<tr>
-									<th>Winner</th>
-									<th>Looser</th>
-							</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="item in matches">
-						<td ng-style="{'color':(item.winner==selplayer?'red':'black')}">{{ item.winner }}</td>
-						<td ng-style="{'color':(item.looser==selplayer?'red':'black')}">{{ item.looser }}</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
-</div>
-<div class="modal-footer">
-	<button class="btn btn-primary" type="button" ng-click="cancel()">Close</button>
-</div>
-</div>
-</div>
-		</script>
-		<div ng-controller="GetController">
-	        <div class="row">
-	            <div class="col-xs-12">
-	                <h2>Get Players(Fetch all the players based on score, number of wins and loses)</h2>
-	                <p class="text-right"><a ng-click="getfunction()" class="btn btn-success">TRY IT</a></p>
-	            </div>
-	        </div>
-	        <div class="row" ng-show="itemsLength">
-	            <div class="col-xs-12">
-	                <div id="resulttable" class="table-responsive col-lg-12">
-					  <h2>Result List</h2>
-					  <table class="table table-striped" id="resultlist">
-					    <thead>
-					      <tr>
-					        <th>Player Id</th>
-					        <th>Player Name</th>
-					        <th>Score</th>
-					        <th>#Wins</th>
-					        <th>#Loses</th>
-					      </tr>
-					    </thead>
-					    <tbody>
-					    	<tr ng-repeat=" item in response">
-										<td>{{item.id}}</td>
-										<td><a ng-click="getPlayedMatches(item)">{{item.name}}</a></td>
-										<td>{{item.score}}</td>
-										<td>{{item.noofwins}}</td>
-										<td>{{item.noofloses}}</td>
-							</tr>
-					    </tbody>
-					  </table>
-					</div>
-	                
-	            </div>
-        	</div>
-   		</div>
-	</div>
+    <div class="container-fluid" ng-app="app">
+        <script type="text/ng-template" id="matches.html">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">List of Played Matches</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="alert alert-warning" role="alert" ng-show="totalCount === 0">No matches are played.</div>
+                            <div class="table-responsive col-lg-12" ng-show="totalCount > 0">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Winner</th>
+                                            <th>Looser</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in matches">
+                                            <td ng-style="{'color':(item.winner==selplayer?'red':'black')}">{{ item.winner }}</td>
+                                            <td ng-style="{'color':(item.looser==selplayer?'red':'black')}">{{ item.looser }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="button" ng-click="cancel()">Close</button>
+                    </div>
+                </div>
+            </div>
+        </script>
+        <div ng-controller="GetController">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2>Get Players(Fetch all the players based on score, number of wins and loses)</h2>
+                    <p class="text-right"><a ng-click="getfunction()" class="btn btn-success">TRY IT</a></p>
+                </div>
+            </div>
+            <div class="row" ng-show="itemsLength">
+                <div class="col-xs-12">
+                    <div id="resulttable" class="table-responsive col-lg-12">
+                        <h2>Result List</h2>
+                        <table class="table table-striped" id="resultlist">
+                            <thead>
+                                <tr>
+                                    <th>Player Id</th>
+                                    <th>Player Name</th>
+                                    <th>Score</th>
+                                    <th>#Wins</th>
+                                    <th>#Loses</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat=" item in response">
+                                    <td>{{item.id}}</td>
+                                    <td><a ng-click="getPlayedMatches(item)">{{item.name}}</a></td>
+                                    <td>{{item.score}}</td>
+                                    <td>{{item.noofwins}}</td>
+                                    <td>{{item.noofloses}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
