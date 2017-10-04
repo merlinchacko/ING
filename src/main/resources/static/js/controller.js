@@ -1,8 +1,12 @@
-var app = angular.module('app', ['ui.bootstrap']);
+var app = angular.module('myApp', ['ui.bootstrap']);
 
 app.controller('GetController', function($scope, $http, $location, $modal) {
 	
-	$scope.getfunction = function(){
+	$scope.resulttable = false;
+	$scope.matchtable = false;
+	$scope.errMessage = "";
+	
+	$scope.getAllPlayers = function(){
 		var url = $location.absUrl() + "getAllPlayers";
 
 		var config = {
@@ -12,8 +16,29 @@ app.controller('GetController', function($scope, $http, $location, $modal) {
 		}
 
 		$http.get(url, config).then(function (response) {
+			$scope.resulttable = true;
+			$scope.matchtable = false;
 			$scope.response = response.data;
 			$scope.itemsLength = Object.keys($scope.response).length;
+		}, function (response) {
+			$scope.errMessage = "Invalid input or Internal server error!";
+		});
+	}
+	
+	$scope.getSuggestedMatches = function(players){
+		console.log("url:"+ $location.absUrl() + "getSuggestedMatches");
+
+		$http({
+			method: 'POST',
+			url: $location.absUrl() + "getSuggestedMatches",
+			data : JSON.stringify(players)
+		}).then(function (response) {
+			$scope.resulttable = false;
+			$scope.matchtable = true;
+			$scope.matches = response.data;
+			$scope.matchLength = Object.keys($scope.matches).length;
+			$scope.itemsLength=0;
+			console.log($scope.matchLength);
 		}, function (response) {
 			$scope.getResultMessage = "Fail!";
 		});

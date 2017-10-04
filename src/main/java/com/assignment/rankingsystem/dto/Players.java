@@ -2,25 +2,31 @@ package com.assignment.rankingsystem.dto;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 /**
  * @author Merlin
  *
  */
+@Component
 public class Players {
 	
 	private Integer id;
 	private String name;
-	private Integer score;
+	private Integer rating;
+	private double score;
 	private Integer noofwins;
 	private Integer noofloses;
 	private List<Matches> matchlist;
+	private Integer rank;
 	
 	public Players() {}
 	
-	public Players(Integer id, String name) {
+	public Players(Integer id, String name, Integer rating) {
 		
 		this.id = id;
 		this.name = name;
+		this.rating = rating;
 	}
 
 	public Integer getId() {
@@ -39,11 +45,19 @@ public class Players {
 		this.name = name;
 	}
 
-	public Integer getScore() {
+	public Integer getRating() {
+		return rating;
+	}
+
+	public void setRating(Integer rating) {
+		this.rating = rating;
+	}
+
+	public double getScore() {
 		return score;
 	}
 
-	public void setScore(Integer score) {
+	public void setScore(double score) {
 		this.score = score;
 	}
 
@@ -69,6 +83,14 @@ public class Players {
 
 	public void setMatchlist(List<Matches> matchlist) {
 		this.matchlist = matchlist;
+	}
+
+	public Integer getRank() {
+		return rank;
+	}
+
+	public void setRank(Integer rank) {
+		this.rank = rank;
 	}
 
 	@Override

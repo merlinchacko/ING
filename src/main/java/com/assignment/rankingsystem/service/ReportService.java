@@ -1,7 +1,9 @@
 package com.assignment.rankingsystem.service;
 
-import java.util.Map;
+import java.io.IOException;
+import java.util.List;
 
+import com.assignment.rankingsystem.dto.Matches;
 import com.assignment.rankingsystem.dto.Players;
 
 /**
@@ -10,6 +12,8 @@ import com.assignment.rankingsystem.dto.Players;
  */
 public interface ReportService {
 
-	Map<Integer, Players> getAllPlayers();
+	List<Players> getAllPlayers() throws IOException;
+
+	List<Matches> getSuggestedMatches(List<Players> playersList);
 
 }

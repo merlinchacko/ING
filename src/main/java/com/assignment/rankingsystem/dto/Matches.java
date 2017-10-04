@@ -1,36 +1,39 @@
 package com.assignment.rankingsystem.dto;
 
+import org.springframework.stereotype.Component;
+
 /**
  * @author Merlin
  *
  */
+@Component
 public class Matches {
 	
-	private String winner;
-	private String looser;
+	private String playerA;
+	private String playerB;
 	
 	public Matches() {}
 	
-	public Matches(String winner, String looser) {
+	public Matches(String playerA, String playerB) {
 		
-		this.winner = winner;
-		this.looser = looser;
+		this.playerA = playerA;
+		this.playerB = playerB;
 	}
 
-	public String getWinner() {
-		return winner;
+	public String getplayerA() {
+		return playerA;
 	}
 
-	public void setWinner(String winner) {
-		this.winner = winner;
+	public void setplayerA(String playerA) {
+		this.playerA = playerA;
 	}
 
-	public String getLooser() {
-		return looser;
+	public String getplayerB() {
+		return playerB;
 	}
 
-	public void setLooser(String looser) {
-		this.looser = looser;
+	public void setplayerB(String playerB) {
+		this.playerB = playerB;
 	}
 
 }

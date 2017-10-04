@@ -1,17 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="myApp">
 <head>
     <title>Code Assignment</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.min.js"></script>
+    
+	<!-- SCROLLS -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
+	
+	<!-- SPELLS -->
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
     <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.6.0.js"></script>
-    <script src="/js/controller.js"></script>
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
+    <script src="/js/controller.js"></script> 
+  	
+  	<!-- Styleheets -->
     <link rel="stylesheet" href="/css/style.css"/>
+    
 </head>
 <body>
-    <div class="container-fluid" ng-app="app">
+	<nav class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/">ELO Rating System</a>
+      </div>
+    </div>
+  </nav>
+  <div class="jumbotron text-center" >
         <script type="text/ng-template" id="matches.html">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -31,8 +46,8 @@
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="item in matches">
-                                            <td ng-style="{'color':(item.winner==selplayer?'red':'black')}">{{ item.winner }}</td>
-                                            <td ng-style="{'color':(item.looser==selplayer?'red':'black')}">{{ item.looser }}</td>
+                                            <td ng-style="{'color':(item.playerA==selplayer?'red':'black')}">{{ item.playerA }}</td>
+                                            <td ng-style="{'color':(item.playerB==selplayer?'red':'black')}">{{ item.playerB }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -45,34 +60,71 @@
                 </div>
             </div>
         </script>
-        <div ng-controller="GetController">
+        <div class="container" ng-controller="GetController">
             <div class="row">
                 <div class="col-xs-12">
-                    <h2>Get Players(Fetch all the players based on score, number of wins and loses)</h2>
-                    <p class="text-right"><a ng-click="getfunction()" class="btn btn-success">TRY IT</a></p>
+                     <a ng-click="getAllPlayers()" class="btn btn-primary">Fetch the players from the file inputs</a>
                 </div>
             </div>
-            <div class="row" ng-show="itemsLength">
+            <div class="row alert alert-danger alert-dismissable" role="alert" ng-show="errMessage.length > 0">
+							<a ng-click="errMessage = null" class="close" aria-label="close">&times;</a>
+							{{errMessage}}
+					</div> 
+            <div class="row" ng-show="resulttable">
                 <div class="col-xs-12">
                     <div id="resulttable" class="table-responsive col-lg-12">
-                        <h2>Result List</h2>
-                        <table class="table table-striped" id="resultlist">
+                        <table class="table table-striped">
                             <thead>
+                            	<tr>
+                            		 <td colspan="7" bgcolor="#428bca"><h4>Player List (Sorted on score, no of loses) </h4></td>
+                            	</tr>
                                 <tr>
-                                    <th>Player Id</th>
-                                    <th>Player Name</th>
-                                    <th>Score</th>
-                                    <th>#Wins</th>
-                                    <th>#Loses</th>
+                                	<td>Rank</td>
+                                    <td>Player Id</td>
+                                    <td>Player Name</td>
+                                    <td>Score</td>
+                                    <td>Rating</td>
+                                    <td>#Wins</td>
+                                    <td>#Loses</td>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat=" item in response">
+                                <tr ng-repeat="item in response">
+                                 	<td>{{item.rank}}</td>
                                     <td>{{item.id}}</td>
-                                    <td><a ng-click="getPlayedMatches(item)">{{item.name}}</a></td>
-                                    <td>{{item.score}}</td>
+                                    <td><a title="Click for player match history" ng-click="getPlayedMatches(item)">{{item.name}}</a></td>
+                                    <td>{{item.score | number: 1}}</td>
+                                    <td>{{item.rating}}</td>
                                     <td>{{item.noofwins}}</td>
                                     <td>{{item.noofloses}}</td>
+                                </tr>
+                            </tbody>
+                        	<tfoot>
+			                     <a ng-click="getSuggestedMatches(response)" class="btn btn-primary">Click here for Predicted Matches</a>
+			                </tfoot>
+                       </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-show="matchtable">
+                <div class="col-xs-12">
+                    <div id="matchtable" class="table-responsive col-lg-12">
+                        <table class="table table-striped">
+                            <thead>
+                            	<tr>
+                            		 <td colspan="3" bgcolor="#428bca"><h4>Suggested Matches</h4> </td>
+                            	</tr>
+                                <tr>
+                                    <td><b>Player 1</b></td>
+                                    <td></td>
+                                    <td><b>Player 2</b></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat=" match in matches">
+                                 	<td>{{match.playerA}}</td>
+                                 	<td>vs.</td>
+                                    <td>{{match.playerB}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -81,6 +133,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>  
 </body>
 </html>
