@@ -3,6 +3,7 @@ package com.assignment.rankingsystem.service.serviceImpl;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -121,11 +122,11 @@ public class ReportServiceImpl implements ReportService {
 		winmap     = new TreeMap<>();
 		losemap    = new TreeMap<>();
 		BufferedReader br = null;
-		FileReader fr = null;
+		InputStreamReader ir = null;
 		String line;
 		try {
-			fr = new FileReader(resource.getFile());
-			br = new BufferedReader(fr);
+			ir = new InputStreamReader(resource.getInputStream());
+			br = new BufferedReader(ir);
 			while ((line = br.readLine()) != null) {
 				if(line.length() > 1) {
 					if(action.equalsIgnoreCase("Add")){
@@ -141,7 +142,7 @@ public class ReportServiceImpl implements ReportService {
 		} finally {
 			try {
 				if (br != null)br.close();
-				if (fr != null)fr.close();
+				if (ir != null)ir.close();
 			} catch (IOException ex) {
 				ex.printStackTrace();
 				throw new IOException();
